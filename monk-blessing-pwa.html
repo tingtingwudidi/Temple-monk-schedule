@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#2B0A0A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="佛光祈福">
+<title>三宝佛光寺 · 祈福时刻</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cinzel:wght@400;600&family=Noto+Serif+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:       #C8921A;
+  --gold-light: #F5C842;
+  --gold-pale:  #FDE8A0;
+  --crimson-dk: #3D0505;
+  --crimson:    #6B0F0F;
+  --saffron:    #D4681A;
+  --ivory:      #FDF6E8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Serif SC', 'Noto Serif Thai', serif;
+  background: var(--crimson-dk);
+  color: var(--ivory);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, #8B1A1A55 0%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 8C44 14 52 14 52 22C52 30 44 30 40 36C36 30 28 30 28 22C28 14 36 14 40 8Z' fill='none' stroke='%23C8921A18' stroke-width='1'/%3E%3Cpath d='M40 44C44 50 52 50 52 58C52 66 44 66 40 72C36 66 28 66 28 58C28 50 36 50 40 44Z' fill='none' stroke='%23C8921A18' stroke-width='1'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
+}
+.container { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 0 0 80px; }
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(180deg, #3D0505 0%, #6B0F0F 60%, #8B1A1A 100%);
+  border-bottom: 3px solid var(--gold);
+  padding: 26px 20px 20px; text-align: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5); position: relative;
+}
+.header::after {
+  content: ''; position: absolute; bottom: -8px; left: 50%;
+  transform: translateX(-50%); width: 60%; height: 5px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  border-radius: 3px;
+}
+.lotus-row { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
+.lotus { width: 24px; height: 24px; }
+.temple-name-zh {
+  font-size: 22px; font-weight: 700; color: var(--gold-light);
+  letter-spacing: 3px; text-shadow: 0 0 18px rgba(245,200,66,0.5);
+}
+.temple-name-en {
+  font-family: 'Cinzel', serif; font-size: 9.5px; color: var(--gold-pale);
+  letter-spacing: 2.5px; margin-top: 4px; opacity: 0.8;
+}
+/* Trilingual subtitle */
+.subtitle-trio {
+  margin-top: 8px;
+  display: flex; justify-content: center; align-items: center; gap: 8px;
+  flex-wrap: wrap;
+}
+.subtitle-trio span {
+  font-size: 10px; color: var(--gold-pale); letter-spacing: 2px; opacity: 0.7;
+}
+.subtitle-trio .sep { opacity: 0.3; font-size: 10px; }
+
+/* ── SERVICES ── */
+.services-section { padding: 20px 16px 0; animation: fadeUp 0.4s 0.08s ease both; }
+.section-label-trio {
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  margin-bottom: 12px;
+}
+.section-label-trio .lbl-zh { font-size: 11px; color: var(--gold); letter-spacing: 3px; opacity: 0.9; }
+.section-label-trio .lbl-en { font-size: 9px; color: var(--gold-pale); letter-spacing: 2px; opacity: 0.6; font-family: 'Cinzel', serif; }
+.section-label-trio .lbl-th { font-size: 9px; color: var(--gold-pale); opacity: 0.55; font-family: 'Noto Serif Thai', serif; }
+
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.service-btn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 5px; padding: 13px 5px;
+  background: linear-gradient(135deg, rgba(200,146,26,0.15), rgba(200,146,26,0.06));
+  border: 1.5px solid rgba(200,146,26,0.45); border-radius: 14px;
+  color: var(--ivory); text-decoration: none;
+  transition: all 0.2s; -webkit-tap-highlight-color: transparent;
+}
+.service-btn:active { background: rgba(200,146,26,0.28); border-color: var(--gold-light); transform: scale(0.97); }
+.service-btn-icon { font-size: 24px; line-height: 1; }
+.service-btn-zh { font-size: 11px; color: var(--gold-light); letter-spacing: 1px; text-align: center; line-height: 1.3; }
+.service-btn-en { font-size: 8.5px; color: var(--gold-pale); opacity: 0.6; text-align: center; line-height: 1.3; letter-spacing: 0.3px; }
+.service-btn-th { font-size: 8.5px; color: var(--gold-pale); opacity: 0.55; text-align: center; font-family: 'Noto Serif Thai', serif; line-height: 1.4; }
+.wa-badge {
+  display: flex; align-items: center; gap: 3px;
+  background: rgba(37,211,102,0.18); border: 1px solid rgba(37,211,102,0.38);
+  border-radius: 20px; padding: 2px 6px; font-size: 8.5px; color: #5EE885;
+}
+
+/* ── TODAY ── */
+.today-section { padding: 18px 16px 4px; }
+.today-card {
+  background: linear-gradient(135deg, #7A1010 0%, #5C0A0A 100%);
+  border: 1.5px solid var(--gold); border-radius: 16px; padding: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(245,200,66,0.2);
+  position: relative; overflow: hidden; animation: fadeUp 0.4s ease both;
+}
+.today-card::before {
+  content: ''; position: absolute; top: -30px; right: -30px;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, rgba(245,200,66,0.12) 0%, transparent 70%);
+}
+.today-date-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px; flex-wrap: wrap; gap: 6px;
+}
+.today-badge {
+  background: var(--gold); color: var(--crimson-dk);
+  font-size: 9px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+  display: flex; flex-direction: column; align-items: center; line-height: 1.4;
+}
+.today-badge .tb-th { font-family: 'Noto Serif Thai', serif; font-size: 8px; opacity: 0.85; }
+.today-date-text { font-size: 13px; color: var(--gold-pale); }
+.today-day { font-size: 11px; color: var(--gold); opacity: 0.85; }
+
+.slots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.slot {
+  background: rgba(0,0,0,0.25); border: 1px solid rgba(200,146,26,0.25);
+  border-radius: 12px; padding: 12px 5px; text-align: center;
+}
+.slot.available { background: rgba(200,146,26,0.1); border-color: rgba(200,146,26,0.55); }
+.slot.active-now {
+  background: linear-gradient(135deg, rgba(212,104,26,0.3), rgba(200,146,26,0.18));
+  border-color: var(--gold-light); box-shadow: 0 0 12px rgba(245,200,66,0.22);
+}
+.slot-icon { font-size: 19px; display: block; margin-bottom: 4px; }
+.slot-label { margin-bottom: 5px; }
+.slot-label-zh { font-size: 10px; color: var(--gold-pale); letter-spacing: 1px; opacity: 0.9; display: block; }
+.slot-label-en { font-size: 8px; color: var(--gold-pale); opacity: 0.55; display: block; letter-spacing: 0.3px; }
+.slot-label-th { font-size: 8px; color: var(--gold-pale); opacity: 0.5; display: block; font-family: 'Noto Serif Thai', serif; }
+.slot-time { font-size: 11px; color: var(--gold-light); font-weight: 600; line-height: 1.3; }
+.slot-time.unavailable { color: rgba(253,246,232,0.3); font-weight: 400; }
+.now-pill {
+  display: inline-flex; flex-direction: column; align-items: center;
+  background: var(--saffron); color: white; font-size: 8px;
+  padding: 2px 6px; border-radius: 10px; margin-top: 4px; line-height: 1.4;
+}
+.now-pill .np-th { font-family: 'Noto Serif Thai', serif; font-size: 7.5px; opacity: 0.9; }
+.no-blessing { text-align: center; padding: 20px 0; }
+.no-blessing .nb-zh { font-size: 13px; color: var(--gold-pale); letter-spacing: 2px; opacity: 0.65; }
+.no-blessing .nb-en { font-size: 11px; color: var(--gold-pale); opacity: 0.45; margin-top: 3px; }
+.no-blessing .nb-th { font-size: 11px; color: var(--gold-pale); opacity: 0.4; font-family: 'Noto Serif Thai', serif; margin-top: 2px; }
+
+/* ── FILTER ── */
+.filter-bar { display: flex; gap: 8px; padding: 14px 16px 6px; overflow-x: auto; scrollbar-width: none; }
+.filter-bar::-webkit-scrollbar { display: none; }
+.filter-tab {
+  white-space: nowrap; padding: 6px 14px; border-radius: 20px; font-size: 10px;
+  letter-spacing: 1px; border: 1px solid rgba(200,146,26,0.4);
+  color: var(--gold-pale); background: transparent; cursor: pointer;
+  transition: all 0.2s; font-family: 'Noto Serif SC', serif;
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+}
+.filter-tab .ft-th { font-family: 'Noto Serif Thai', serif; font-size: 9px; opacity: 0.75; }
+.filter-tab.active { background: var(--gold); color: var(--crimson-dk); border-color: var(--gold); font-weight: 700; }
+.filter-tab.active .ft-th { opacity: 0.8; }
+
+/* ── LIST ── */
+.schedule-section { padding: 4px 16px; }
+.month-group { margin-bottom: 18px; }
+.month-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.month-header-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.35; }
+.month-header-text { font-family: 'Cinzel', serif; font-size: 10px; color: var(--gold); letter-spacing: 3px; opacity: 0.85; white-space: nowrap; }
+.day-row {
+  display: flex; align-items: stretch; gap: 10px; margin-bottom: 7px;
+  border-radius: 12px; padding: 12px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(200,146,26,0.15);
+  cursor: pointer; transition: all 0.18s; -webkit-tap-highlight-color: transparent;
+  animation: fadeUp 0.3s ease both;
+}
+.day-row:active { background: rgba(200,146,26,0.12); border-color: rgba(200,146,26,0.4); }
+.day-row.is-today { background: rgba(200,146,26,0.14); border-color: rgba(200,146,26,0.45); }
+.day-row.past { opacity: 0.42; }
+.day-left { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 44px; }
+.day-num { font-size: 24px; font-weight: 700; color: var(--gold-light); line-height: 1; }
+.day-name { font-size: 9px; color: var(--gold); letter-spacing: 0.3px; margin-top: 2px; opacity: 0.8; text-align: center; }
+.day-divider { width: 1px; align-self: stretch; background: linear-gradient(180deg, transparent, var(--gold), transparent); opacity: 0.3; }
+.day-right { flex: 1; display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+.mini-slot { display: flex; align-items: center; gap: 6px; }
+.mini-icon { font-size: 13px; width: 18px; text-align: center; flex-shrink: 0; }
+.mini-labels { display: flex; flex-direction: column; gap: 0px; flex: 1; }
+.mini-time { color: var(--ivory); opacity: 0.82; font-size: 11px; }
+.mini-time.empty { color: rgba(253,246,232,0.28); font-size: 10px; }
+.mini-label-sub { font-size: 9px; color: var(--gold-pale); opacity: 0.45; line-height: 1.2; }
+.mini-label-sub .th { font-family: 'Noto Serif Thai', serif; }
+
+/* ── LOADING ── */
+.loading-wrap { text-align: center; padding: 60px 20px; }
+.spinner { width: 38px; height: 38px; border: 3px solid rgba(200,146,26,0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 11px; color: var(--gold); letter-spacing: 3px; opacity: 0.7; }
+.loading-text .th { font-family: 'Noto Serif Thai', serif; display: block; font-size: 10px; letter-spacing: 1px; margin-top: 3px; }
+
+/* ── MODAL ── */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.72); backdrop-filter: blur(5px); z-index: 100; display: flex; align-items: flex-end; }
+.modal-overlay.hidden { display: none; }
+.modal-sheet {
+  background: linear-gradient(180deg, #5C0A0A, #3D0505);
+  border: 1.5px solid var(--gold); border-bottom: none;
+  border-radius: 24px 24px 0 0; padding: 26px 20px 48px;
+  width: 100%; max-width: 480px; margin: 0 auto;
+  animation: slideUp 0.28s ease;
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+.modal-title { font-size: 18px; color: var(--gold-light); letter-spacing: 2px; }
+.modal-sub { font-size: 11px; color: var(--gold-pale); opacity: 0.7; margin-top: 2px; }
+.modal-close { background: rgba(200,146,26,0.15); border: 1px solid rgba(200,146,26,0.4); color: var(--gold); width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.modal-slots { display: flex; flex-direction: column; gap: 12px; }
+.modal-slot { display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 14px; border: 1px solid rgba(200,146,26,0.2); background: rgba(0,0,0,0.2); }
+.modal-slot.available { background: rgba(200,146,26,0.1); border-color: rgba(200,146,26,0.45); }
+.modal-slot-icon { font-size: 26px; flex-shrink: 0; }
+.modal-slot-info { flex: 1; }
+.modal-slot-name { display: flex; flex-direction: column; gap: 1px; margin-bottom: 4px; }
+.modal-slot-name .zh { font-size: 12px; color: var(--gold-pale); letter-spacing: 1px; }
+.modal-slot-name .en { font-size: 10px; color: var(--gold-pale); opacity: 0.55; }
+.modal-slot-name .th { font-size: 10px; color: var(--gold-pale); opacity: 0.5; font-family: 'Noto Serif Thai', serif; }
+.modal-slot-time { font-size: 18px; color: var(--gold-light); font-weight: 700; }
+.modal-slot-time.empty { color: rgba(253,246,232,0.3); font-size: 13px; font-weight: 400; }
+.avail-badge { font-size: 9px; padding: 3px 9px; border-radius: 10px; display: flex; flex-direction: column; align-items: center; gap: 1px; flex-shrink: 0; }
+.avail-badge .th { font-family: 'Noto Serif Thai', serif; font-size: 8px; }
+.avail-badge.yes { background: rgba(50,180,80,0.22); color: #7FE09A; border: 1px solid rgba(50,180,80,0.35); }
+.avail-badge.no  { background: rgba(150,50,50,0.22); color: rgba(253,246,232,0.35); border: 1px solid rgba(150,50,50,0.25); }
+
+.footer { text-align: center; padding: 20px; }
+.footer .fz { font-size: 10px; color: var(--gold); opacity: 0.45; letter-spacing: 2px; }
+.footer .fe { font-size: 9px; color: var(--gold-pale); opacity: 0.3; margin-top: 2px; letter-spacing: 1px; font-family: 'Cinzel', serif; }
+.footer .ft { font-size: 9px; color: var(--gold-pale); opacity: 0.28; margin-top: 2px; font-family: 'Noto Serif Thai', serif; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="lotus-row">
+      <svg class="lotus" viewBox="0 0 40 40" fill="none"><path d="M20 34C20 34 8 26 8 16c0-6 5-9 9-7 1-3 3-4 3-4s2 1 3 4c4-2 9 1 9 7 0 10-12 18-12 18z" fill="#C8921A" opacity=".85"/><path d="M20 30c0 0-8-6-8-13 0-4 3.5-6 6-4.5 1 2 2 2.5 2 2.5s1-.5 2-2.5c2.5-1.5 6 .5 6 4.5 0 7-8 13-8 13z" fill="#F5C842" opacity=".75"/><circle cx="20" cy="20" r="3" fill="#FDE8A0"/></svg>
+      <svg class="lotus" viewBox="0 0 40 40" fill="none"><path d="M20 34C20 34 8 26 8 16c0-6 5-9 9-7 1-3 3-4 3-4s2 1 3 4c4-2 9 1 9 7 0 10-12 18-12 18z" fill="#C8921A" opacity=".92"/><path d="M20 30c0 0-8-6-8-13 0-4 3.5-6 6-4.5 1 2 2 2.5 2 2.5s1-.5 2-2.5c2.5-1.5 6 .5 6 4.5 0 7-8 13-8 13z" fill="#F5C842" opacity=".85"/><circle cx="20" cy="20" r="3" fill="#FDE8A0"/></svg>
+      <svg class="lotus" viewBox="0 0 40 40" fill="none"><path d="M20 34C20 34 8 26 8 16c0-6 5-9 9-7 1-3 3-4 3-4s2 1 3 4c4-2 9 1 9 7 0 10-12 18-12 18z" fill="#C8921A" opacity=".85"/><path d="M20 30c0 0-8-6-8-13 0-4 3.5-6 6-4.5 1 2 2 2.5 2 2.5s1-.5 2-2.5c2.5-1.5 6 .5 6 4.5 0 7-8 13-8 13z" fill="#F5C842" opacity=".75"/><circle cx="20" cy="20" r="3" fill="#FDE8A0"/></svg>
+    </div>
+    <div class="temple-name-zh">三宝佛光寺</div>
+    <div class="temple-name-en">LORD BUDDHA TEMPLE · SINGAPORE</div>
+    <div class="subtitle-trio">
+      <span>僧侣祈福时刻</span>
+      <span class="sep">·</span>
+      <span>Monk Blessing Schedule</span>
+      <span class="sep">·</span>
+      <span style="font-family:'Noto Serif Thai',serif">ตารางพิธีสวดมนต์</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="services-section">
+    <div class="section-label-trio">
+      <span class="lbl-zh">预约佛教服务</span>
+      <span class="lbl-en">Buddhist Services</span>
+      <span class="lbl-th">บริการทางพุทธศาสนา</span>
+    </div>
+    <div class="services-grid">
+
+      <a class="service-btn" href="https://wa.me/p/9768672899884103/6592966180" target="_blank" rel="noopener">
+        <span class="service-btn-icon">🙏</span>
+        <span class="service-btn-zh">供养僧人</span>
+        <span class="service-btn-en">Sangkathan</span>
+        <span class="service-btn-th">ถวายสังฆทาน</span>
+        <span class="wa-badge">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="#5EE885"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51-.17 0-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.87 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/><path d="M12 0C5.37 0 0 5.37 0 12c0 2.13.56 4.12 1.53 5.85L0 24l6.27-1.51A11.95 11.95 0 0012 24c6.63 0 12-5.37 12-12S18.63 0 12 0zm0 21.82a9.82 9.82 0 01-5.01-1.37l-.36-.21-3.72.89.94-3.62-.23-.37A9.82 9.82 0 1112 21.82z"/></svg>
+          WhatsApp
+        </span>
+      </a>
+
+      <a class="service-btn" href="https://wa.me/p/23933443689582590/6592966180" target="_blank" rel="noopener">
+        <span class="service-btn-icon">🌸</span>
+        <span class="service-btn-zh">冲花水</span>
+        <span class="service-btn-en">Flower Bathing</span>
+        <span class="service-btn-th">สรงน้ำดอกไม้</span>
+        <span class="wa-badge">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="#5EE885"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51-.17 0-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.87 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/><path d="M12 0C5.37 0 0 5.37 0 12c0 2.13.56 4.12 1.53 5.85L0 24l6.27-1.51A11.95 11.95 0 0012 24c6.63 0 12-5.37 12-12S18.63 0 12 0zm0 21.82a9.82 9.82 0 01-5.01-1.37l-.36-.21-3.72.89.94-3.62-.23-.37A9.82 9.82 0 1112 21.82z"/></svg>
+          WhatsApp
+        </span>
+      </a>
+
+      <a class="service-btn" href="https://wa.me/p/9775215089241586/6592966180" target="_blank" rel="noopener">
+        <span class="service-btn-icon">🚗</span>
+        <span class="service-btn-zh">车祈福</span>
+        <span class="service-btn-en">Car Blessing</span>
+        <span class="service-btn-th">พรรถยนต์</span>
+        <span class="wa-badge">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="#5EE885"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51-.17 0-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.87 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/><path d="M12 0C5.37 0 0 5.37 0 12c0 2.13.56 4.12 1.53 5.85L0 24l6.27-1.51A11.95 11.95 0 0012 24c6.63 0 12-5.37 12-12S18.63 0 12 0zm0 21.82a9.82 9.82 0 01-5.01-1.37l-.36-.21-3.72.89.94-3.62-.23-.37A9.82 9.82 0 1112 21.82z"/></svg>
+          WhatsApp
+        </span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div id="loadingWrap" class="loading-wrap">
+    <div class="spinner"></div>
+    <div class="loading-text">
+      祈福时刻加载中… · Loading…
+      <span class="th">กำลังโหลดข้อมูล…</span>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="mainContent" style="display:none">
+    <div class="today-section">
+      <div class="section-label-trio">
+        <span class="lbl-zh">今日祈福</span>
+        <span class="lbl-en">Today's Blessing</span>
+        <span class="lbl-th">พิธีสวดมนต์วันนี้</span>
+      </div>
+      <div class="today-card" id="todayCard"></div>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-tab active" data-filter="upcoming" onclick="setFilter('upcoming')">
+        即将到来 · Upcoming
+        <span class="ft-th">กำลังจะมาถึง</span>
+      </button>
+      <button class="filter-tab" data-filter="all" onclick="setFilter('all')">
+        全部日程 · All
+        <span class="ft-th">ตารางทั้งหมด</span>
+      </button>
+    </div>
+
+    <div class="schedule-section" id="scheduleList"></div>
+  </div>
+
+  <div class="footer">
+    <div class="fz">🙏 三宝佛光寺 · Singapore 🙏</div>
+    <div class="fe">Lord Buddha Temple</div>
+    <div class="ft">วัดพระพุทธสามประการ</div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay hidden" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-sub"   id="modalSub"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-slots" id="modalSlots"></div>
+  </div>
+</div>
+
+<script>
+const API_URL = 'https://sheetdb.io/api/v1/mtywrzb6wojc4';
+
+// Each session: Chinese · English · Thai labels
+const SESSION_META = [
+  { key: 'Morning',   icon: '🌄', zh: '早上', en: 'Morning',   th: 'เช้า'  },
+  { key: 'Afternoon', icon: '☀️',  zh: '下午', en: 'Afternoon', th: 'บ่าย'  },
+  { key: 'Evening',   icon: '🌆', zh: '傍晚', en: 'Evening',   th: 'เย็น'  },
+];
+
+let allRows    = [];
+let filterMode = 'upcoming';
+
+// ── Helpers ──────────────────────────────────
+function todaySG() {
+  const sg = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Singapore' }));
+  return new Date(sg.getFullYear(), sg.getMonth(), sg.getDate());
+}
+function nowHourSG() {
+  const sg = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Singapore' }));
+  return sg.getHours() + sg.getMinutes() / 60;
+}
+function slotActiveNow(key) {
+  const h = nowHourSG();
+  if (key === 'Morning')   return h >= 9  && h < 11;
+  if (key === 'Afternoon') return h >= 13 && h < 15;
+  if (key === 'Evening')   return h >= 16 && h < 20;
+  return false;
+}
+function parseDate(str) {
+  if (!str) return null;
+  const p = String(str).trim().split('/');
+  if (p.length !== 3) return null;
+  const d = +p[0], m = +p[1] - 1, y = +p[2];
+  if (isNaN(d + m + y) || y < 2000) return null;
+  return new Date(y, m, d);
+}
+function normalizeRow(raw) {
+  const dateStr = (raw['Date'] || raw['date'] || '').toString().trim();
+  return {
+    dateStr,
+    date:      parseDate(dateStr),
+    week:      (raw['week'] || '').trim(),
+    Morning:   (raw['Morning']   || '').trim(),
+    Afternoon: (raw['Afternoon'] || '').trim(),
+    Evening:   (raw['Evening']   || '').trim(),
+  };
+}
+
+// Translate English weekday → ZH + TH
+const WEEKDAY = {
+  Sunday:    { zh: '周日', th: 'อาทิตย์' },
+  Monday:    { zh: '周一', th: 'จันทร์'  },
+  Tuesday:   { zh: '周二', th: 'อังคาร' },
+  Wednesday: { zh: '周三', th: 'พุธ'    },
+  Thursday:  { zh: '周四', th: 'พฤหัส' },
+  Friday:    { zh: '周五', th: 'ศุกร์'  },
+  Saturday:  { zh: '周六', th: 'เสาร์'  },
+};
+function weekLabel(en) {
+  const w = WEEKDAY[en] || {};
+  return `${w.zh || en} · ${en} · ${w.th || ''}`;
+}
+
+// ── Today card ───────────────────────────────
+function renderToday(row) {
+  const card  = document.getElementById('todayCard');
+  const today = todaySG();
+  const dateLabelZH = today.toLocaleDateString('zh-SG', { month: 'long', day: 'numeric', timeZone: 'Asia/Singapore' });
+  const dateLabelEN = today.toLocaleDateString('en-SG', { month: 'short',  day: 'numeric', timeZone: 'Asia/Singapore' });
+
+  if (!row) {
+    card.innerHTML = `<div class="no-blessing">
+      <div style="font-size:28px;margin-bottom:8px">🙏</div>
+      <div class="nb-zh">今日暂无祈福安排</div>
+      <div class="nb-en">No blessing session today</div>
+      <div class="nb-th">วันนี้ไม่มีพิธีสวดมนต์</div>
+    </div>`;
+    return;
+  }
+
+  const slotsHtml = SESSION_META.map(s => {
+    const t   = row[s.key];
+    const now = slotActiveNow(s.key);
+    const cls = ['slot', t && 'available', now && t && 'active-now'].filter(Boolean).join(' ');
+    return `<div class="${cls}">
+      <span class="slot-icon">${s.icon}</span>
+      <div class="slot-label">
+        <span class="slot-label-zh">${s.zh}</span>
+        <span class="slot-label-en">${s.en}</span>
+        <span class="slot-label-th">${s.th}</span>
+      </div>
+      <div class="slot-time ${t ? '' : 'unavailable'}">${t || '—'}</div>
+      ${now && t ? `<div class="now-pill">进行中<span class="np-th">กำลังสวด</span></div>` : ''}
+    </div>`;
+  }).join('');
+
+  card.innerHTML = `
+    <div class="today-date-row">
+      <span class="today-badge">
+        今天 Today
+        <span class="tb-th">วันนี้</span>
+      </span>
+      <span class="today-date-text">${dateLabelZH} · ${dateLabelEN}</span>
+      <span class="today-day">${row.week}</span>
+    </div>
+    <div class="slots-grid">${slotsHtml}</div>`;
+}
+
+// ── Schedule list ─────────────────────────────
+function renderList() {
+  const el    = document.getElementById('scheduleList');
+  const today = todaySG();
+  const rows  = filterMode === 'upcoming'
+    ? allRows.filter(r => r.date >= today)
+    : allRows;
+
+  if (!rows.length) {
+    el.innerHTML = `<div style="text-align:center;padding:40px;opacity:0.5;font-size:12px;letter-spacing:2px;color:var(--gold)">暂无数据 · No data</div>`;
+    return;
+  }
+
+  const groups = new Map();
+  for (const row of rows) {
+    const key = row.date.toLocaleDateString('en-SG', { year: 'numeric', month: 'long', timeZone: 'Asia/Singapore' });
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(row);
+  }
+
+  let html = '';
+  for (const [month, mRows] of groups) {
+    html += `<div class="month-group">
+      <div class="month-header">
+        <div class="month-header-line"></div>
+        <div class="month-header-text">${month}</div>
+        <div class="month-header-line"></div>
+      </div>`;
+
+    for (const row of mRows) {
+      const idx     = allRows.indexOf(row);
+      const isToday = row.date.toDateString() === today.toDateString();
+      const isPast  = row.date < today;
+      const cls     = ['day-row', isToday && 'is-today', isPast && 'past'].filter(Boolean).join(' ');
+      const w       = WEEKDAY[row.week] || {};
+
+      const mini = SESSION_META.map(s => {
+        const t = row[s.key];
+        return `<div class="mini-slot">
+          <span class="mini-icon">${s.icon}</span>
+          <div class="mini-labels">
+            <span class="mini-time ${t ? '' : 'empty'}">${t || '—'}</span>
+            <span class="mini-label-sub">${s.en} · <span class="th">${s.th}</span></span>
+          </div>
+        </div>`;
+      }).join('');
+
+      html += `<div class="${cls}" onclick="openModal(${idx})">
+        <div class="day-left">
+          <div class="day-num">${row.date.getDate()}</div>
+          <div class="day-name">${w.zh || row.week}<br>${row.week}<br><span style="font-family:'Noto Serif Thai',serif;font-size:8px">${w.th || ''}</span></div>
+        </div>
+        <div class="day-divider"></div>
+        <div class="day-right">${mini}</div>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+  el.innerHTML = html;
+}
+
+// ── Modal ─────────────────────────────────────
+function openModal(idx) {
+  const row = allRows[idx];
+  if (!row) return;
+  const d = row.date;
+  const zh = d ? d.toLocaleDateString('zh-SG', { month:'long', day:'numeric', timeZone:'Asia/Singapore' }) : row.dateStr;
+  const en = d ? d.toLocaleDateString('en-SG', { month:'short', day:'numeric', weekday:'long', timeZone:'Asia/Singapore' }) : '';
+  document.getElementById('modalTitle').textContent = zh;
+  const w = WEEKDAY[row.week] || {};
+  document.getElementById('modalSub').textContent = `${w.zh||row.week} · ${row.week} · ${w.th||''}`;
+
+  const html = SESSION_META.map(s => {
+    const t = row[s.key];
+    return `<div class="modal-slot ${t ? 'available' : ''}">
+      <div class="modal-slot-icon">${s.icon}</div>
+      <div class="modal-slot-info">
+        <div class="modal-slot-name">
+          <span class="zh">${s.zh}</span>
+          <span class="en">${s.en}</span>
+          <span class="th">${s.th}</span>
+        </div>
+        <div class="modal-slot-time ${t ? '' : 'empty'}">${t || '无 · None · ไม่มี'}</div>
+      </div>
+      <span class="avail-badge ${t ? 'yes' : 'no'}">
+        ${t ? '有 / Yes' : '无 / No'}
+        <span class="th">${t ? 'มี' : 'ไม่มี'}</span>
+      </span>
+    </div>`;
+  }).join('');
+
+  document.getElementById('modalSlots').innerHTML = html;
+  document.getElementById('modalOverlay').classList.remove('hidden');
+}
+function closeModal() { document.getElementById('modalOverlay').classList.add('hidden'); }
+function handleOverlayClick(e) { if (e.target.id === 'modalOverlay') closeModal(); }
+function setFilter(mode) {
+  filterMode = mode;
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.toggle('active', t.dataset.filter === mode));
+  renderList();
+}
+
+// ── Fetch ─────────────────────────────────────
+async function init() {
+  try {
+    const res  = await fetch(API_URL);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    if (!Array.isArray(json) || !json.length) throw new Error('No data');
+
+    allRows = json
+      .map(normalizeRow)
+      .filter(r => r.date !== null)
+      .sort((a, b) => a.date - b.date);
+
+    console.log('[Loaded]', allRows.length, 'days · sample:', allRows[0]);
+
+    const today    = todaySG();
+    const todayRow = allRows.find(r => r.date.toDateString() === today.toDateString());
+
+    document.getElementById('loadingWrap').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+    renderToday(todayRow);
+    renderList();
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById('loadingWrap').innerHTML = `
+      <div style="font-size:30px;margin-bottom:12px">🙏</div>
+      <div style="color:var(--gold);font-size:12px;letter-spacing:1.5px;opacity:0.85;line-height:2.2">
+        无法加载数据 · Failed to load<br>
+        <span style="font-family:'Noto Serif Thai',serif">โหลดข้อมูลไม่ได้</span><br>
+        <span style="font-size:10px;opacity:0.55">${err.message}</span>
+      </div>
+      <button onclick="init()" style="margin-top:18px;background:var(--gold);color:var(--crimson-dk);border:none;padding:9px 28px;border-radius:20px;font-size:11px;letter-spacing:2px;cursor:pointer;font-family:inherit">
+        重新加载 · Reload · โหลดใหม่
+      </button>`;
+  }
+}
+
+// ── PWA manifest ──────────────────────────────
+(function() {
+  const mf = {
+    name: "三宝佛光寺 · Lord Buddha Temple",
+    short_name: "佛光祈福",
+    start_url: ".", display: "standalone",
+    background_color: "#2B0A0A", theme_color: "#2B0A0A"
+  };
+  const l = document.createElement('link');
+  l.rel = 'manifest';
+  l.href = URL.createObjectURL(new Blob([JSON.stringify(mf)], { type:'application/json' }));
+  document.head.appendChild(l);
+})();
+
+// ── Service Worker (network-first) ───────────
+if ('serviceWorker' in navigator) {
+  const sw = `
+    const CACHE = 'blessing-v3';
+    self.addEventListener('install', e => e.waitUntil(caches.open(CACHE)));
+    self.addEventListener('fetch', e => {
+      e.respondWith(
+        fetch(e.request)
+          .then(res => { caches.open(CACHE).then(c => c.put(e.request, res.clone())); return res; })
+          .catch(() => caches.match(e.request))
+      );
+    });`;
+  navigator.serviceWorker
+    .register(URL.createObjectURL(new Blob([sw], { type:'application/javascript' })))
+    .catch(() => {});
+}
+
+init();
+</script>
+</body>
+</html>
