@@ -1,4 +1,4 @@
-# Lord Buddha Temple · Blessing Schedule (PWA)
+# Lord Buddha Temple · Blessing Schedule 
 
 A custom-built, lightweight Progressive Web App (PWA) designed for the **Lord Buddha Temple in Singapore**. It provides a seamless way for devotees to check monk blessing schedules and book Buddhist services in English, Chinese, and Thai.
 
